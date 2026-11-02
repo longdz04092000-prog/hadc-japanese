@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HADC Japanese - Học tiếng Nhật</title>
-
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1265ad">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <style>
     * {
       box-sizing: border-box;
@@ -188,7 +189,7 @@
   </footer>
 
   <script>
-    function openCourse(level) {
+      function openCourse(level) {
       if (level === "N3") {
         alert(
           "Khóa N3 Premium đang được xây dựng. " +
@@ -201,7 +202,12 @@
         );
       }
     }
+
+if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+    }
   </script>
 
 </body>
+
 </html>
