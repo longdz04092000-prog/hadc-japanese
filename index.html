@@ -124,6 +124,34 @@
       color: #64748b;
       font-size: 13px;
     }
+    .install-box {
+  max-width: 950px;
+  margin: 0 auto 10px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.install-box button {
+  width: auto;
+  background: #1265ad;
+  padding: 12px 24px;
+  font-size: 15px;
+}
+
+.install-box button:hover {
+  background: #094b87;
+}
+
+.ios-guide {
+  display: none;
+  background: #fff8e1;
+  border: 1px solid #f0d98a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  line-height: 1.7;
+  text-align: left;
+}
   </style>
 </head>
 
@@ -142,7 +170,14 @@
       N3 dành cho học viên Premium.
     </p>
   </section>
-
+  <div class="install-box" id="installBox" style="display:none">
+    <button id="installBtn">📲 Cài app về điện thoại</button>
+    <div class="ios-guide" id="iosGuide">
+      <strong>Cài trên iPhone (dùng Safari):</strong><br>
+      1. Bấm nút <strong>Chia sẻ</strong> (ô vuông có mũi tên lên) ở thanh dưới.<br>
+      2. Chọn <strong>Thêm vào Màn hình chính</strong>.
+    </div>
+  </div>
   <main class="courses">
 
     <div class="course">
@@ -206,6 +241,44 @@
 if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
     }
+        let deferredPrompt = null;
+    const installBox = document.getElementById("installBox");
+    const installBtn = document.getElementById("installBtn");
+    const iosGuide = document.getElementById("iosGuide");
+
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true;
+
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+    if (!isStandalone) {
+      if (isIOS) {
+        installBox.style.display = "block";
+        installBtn.addEventListener("click", () => {
+          iosGuide.style.display =
+            iosGuide.style.display === "block" ? "none" : "block";
+        });
+      } else {
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          installBox.style.display = "block";
+        });
+
+        installBtn.addEventListener("click", async () => {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          installBox.style.display = "none";
+        });
+      }
+    }
+
+    window.addEventListener("appinstalled", () => {
+      installBox.style.display = "none";
+    });
   </script>
 
 </body>
