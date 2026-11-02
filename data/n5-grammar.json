@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "title": "N1 は N2 です",
+    "structure": "N1 は N2 です",
+    "meaning": "N1 là N2 (câu khẳng định, dùng để giới thiệu hoặc nói về ai/cái gì)",
+    "notes": [
+      "は đứng sau chủ đề của câu. Khi là trợ từ thì đọc là \"wa\", không đọc \"ha\".",
+      "です đặt cuối câu để câu lịch sự.",
+      "Tiếng Nhật thường bỏ chủ ngữ nếu ngữ cảnh đã rõ."
+    ],
+    "examples": [
+      { "jp": "私は学生です。", "kana": "わたしはがくせいです。", "vi": "Tôi là học sinh/sinh viên." },
+      { "jp": "田中さんは先生です。", "kana": "たなかさんはせんせいです。", "vi": "Anh/chị Tanaka là giáo viên." }
+    ],
+    "exercises": [
+      { "q": "わたし（　）がくせいです。", "options": ["は", "を", "に", "で"], "answer": 0, "explain": "は đánh dấu chủ đề của câu." },
+      { "q": "Cách đọc đúng của trợ từ は trong câu này là gì?", "options": ["ha", "wa", "ba", "pa"], "answer": 1, "explain": "Khi là trợ từ, は đọc là \"wa\"." }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "N1 は N2 じゃありません",
+    "structure": "N1 は N2 じゃありません",
+    "meaning": "N1 không phải là N2 (phủ định của です)",
+    "notes": [
+      "じゃありません dùng nhiều khi nói chuyện. Văn viết trang trọng dùng ではありません.",
+      "Trong hội thoại thân mật, có thể nói じゃないです."
+    ],
+    "examples": [
+      { "jp": "私は先生じゃありません。", "kana": "わたしはせんせいじゃありません。", "vi": "Tôi không phải giáo viên." },
+      { "jp": "これは水じゃありません。", "kana": "これはみずじゃありません。", "vi": "Đây không phải nước." }
+    ],
+    "exercises": [
+      { "q": "わたしは いしゃ（　）。(Tôi không phải bác sĩ)", "options": ["じゃありません", "ですありません", "じゃいません", "をありません"], "answer": 0, "explain": "Phủ định của です là じゃありません." }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Câu hỏi với か",
+    "structure": "Câu khẳng định + か",
+    "meaning": "Thêm か vào cuối câu để biến thành câu hỏi",
+    "notes": [
+      "Không cần đổi trật tự từ, chỉ cần thêm か.",
+      "Câu hỏi nghi vấn trả lời bằng はい (vâng) hoặc いいえ (không)."
+    ],
+    "examples": [
+      { "jp": "あなたは学生ですか。", "kana": "あなたはがくせいですか。", "vi": "Bạn là học sinh/sinh viên phải không?" },
+      { "jp": "はい、学生です。", "kana": "はい、がくせいです。", "vi": "Vâng, tôi là học sinh/sinh viên." }
+    ],
+    "exercises": [
+      { "q": "これはペンです（　）。(Đây là cái bút phải không?)", "options": ["か", "の", "を", "は"], "answer": 0, "explain": "か đặt cuối câu để hỏi." }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "これ / それ / あれ",
+    "structure": "これ・それ・あれ は N です",
+    "meaning": "Cái này (gần người nói) / cái đó (gần người nghe) / cái kia (xa cả hai)",
+    "notes": [
+      "これ: vật gần người nói.",
+      "それ: vật gần người nghe.",
+      "あれ: vật xa cả hai người.",
+      "Các từ này đứng một mình, không đi kèm danh từ phía sau."
+    ],
+    "examples": [
+      { "jp": "これは本です。", "kana": "これはほんです。", "vi": "Đây là quyển sách." },
+      { "jp": "あれは学校です。", "kana": "あれはがっこうです。", "vi": "Kia là trường học." }
+    ],
+    "exercises": [
+      { "q": "Vật ở xa cả hai người: （　）は山です。", "options": ["これ", "それ", "あれ", "ここ"], "answer": 2, "explain": "あれ chỉ vật xa cả người nói và người nghe." }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "N1 の N2",
+    "structure": "N1 の N2",
+    "meaning": "N2 của N1 (sở hữu, thuộc về, hoặc bổ nghĩa cho danh từ)",
+    "notes": [
+      "Thứ tự ngược với tiếng Việt: người sở hữu đứng trước, vật đứng sau.",
+      "Tiếng Việt: \"sách của tôi\". Tiếng Nhật: \"tôi の sách\"."
+    ],
+    "examples": [
+      { "jp": "私の本です。", "kana": "わたしのほんです。", "vi": "Là sách của tôi." },
+      { "jp": "日本語の先生です。", "kana": "にほんごのせんせいです。", "vi": "Là giáo viên tiếng Nhật." }
+    ],
+    "exercises": [
+      { "q": "わたし（　）かばん (cặp của tôi)", "options": ["の", "を", "に", "で"], "answer": 0, "explain": "の nối hai danh từ, nghĩa là \"của\"." }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "N を V ます",
+    "structure": "N を Vます",
+    "meaning": "Làm hành động V lên N (を đánh dấu đối tượng của hành động)",
+    "notes": [
+      "ます là đuôi lịch sự của động từ, dùng cho hiện tại và tương lai.",
+      "を đọc là \"o\".",
+      "Động từ luôn đứng cuối câu."
+    ],
+    "examples": [
+      { "jp": "パンを食べます。", "kana": "パンをたべます。", "vi": "Tôi ăn bánh mì." },
+      { "jp": "毎日日本語を勉強します。", "kana": "まいにちにほんごをべんきょうします。", "vi": "Mỗi ngày tôi học tiếng Nhật." }
+    ],
+    "exercises": [
+      { "q": "みず（　）のみます。(Uống nước)", "options": ["を", "に", "の", "と"], "answer": 0, "explain": "Nước là đối tượng của hành động uống nên dùng を." }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Nơi chốn + で / に",
+    "structure": "Nơi chốn で Vます / Nơi chốn に 行きます",
+    "meaning": "で: nơi diễn ra hành động. に: nơi đến (đi với động từ chuyển động như 行きます)",
+    "notes": [
+      "で: học ở trường, ăn ở nhà hàng, làm việc ở công ty...",
+      "に (hoặc へ): đi, đến, về một nơi nào đó.",
+      "Khi là trợ từ chỉ hướng, へ đọc là \"e\"."
+    ],
+    "examples": [
+      { "jp": "学校で日本語を勉強します。", "kana": "がっこうでにほんごをべんきょうします。", "vi": "Tôi học tiếng Nhật ở trường." },
+      { "jp": "学校に行きます。", "kana": "がっこうにいきます。", "vi": "Tôi đi đến trường." }
+    ],
+    "exercises": [
+      { "q": "としょかん（　）べんきょうします。(Học ở thư viện)", "options": ["で", "に", "を", "の"], "answer": 0, "explain": "Thư viện là nơi diễn ra hành động học nên dùng で." },
+      { "q": "がっこう（　）いきます。(Đi đến trường)", "options": ["で", "に", "を", "の"], "answer": 1, "explain": "Đi đến một nơi thì dùng に." }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Quá khứ: ました / ませんでした",
+    "structure": "Vます → Vました (đã) / Vませんでした (đã không)",
+    "meaning": "Diễn tả hành động đã xảy ra hoặc đã không xảy ra",
+    "notes": [
+      "Chỉ đổi phần đuôi: ます → ました.",
+      "Phủ định quá khứ: ます → ませんでした.",
+      "Thường đi với きのう (hôm qua), せんしゅう (tuần trước)."
+    ],
+    "examples": [
+      { "jp": "きのう映画を見ました。", "kana": "きのうえいがをみました。", "vi": "Hôm qua tôi đã xem phim." },
+      { "jp": "朝ごはんを食べませんでした。", "kana": "あさごはんをたべませんでした。", "vi": "Tôi đã không ăn sáng." }
+    ],
+    "exercises": [
+      { "q": "きのう パンを たべ（　）。(Hôm qua đã ăn bánh mì)", "options": ["ます", "ました", "ません", "たい"], "answer": 1, "explain": "Hành động đã xảy ra: ます đổi thành ました." },
+      { "q": "けさ なにも たべ（　）。(Sáng nay đã không ăn gì)", "options": ["ません", "ませんでした", "ました", "ます"], "answer": 1, "explain": "Phủ định trong quá khứ dùng ませんでした." }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Vたいです",
+    "structure": "Vます (bỏ ます) + たいです",
+    "meaning": "Muốn làm V",
+    "notes": [
+      "Bỏ ます rồi thêm たいです. Ví dụ: 食べます → 食べたいです.",
+      "Dùng để nói mong muốn của chính mình, hoặc hỏi người đối diện.",
+      "Với đối tượng của hành động, có thể dùng を hoặc が."
+    ],
+    "examples": [
+      { "jp": "日本へ行きたいです。", "kana": "にほんへいきたいです。", "vi": "Tôi muốn đi Nhật Bản." },
+      { "jp": "水を飲みたいです。", "kana": "みずをのみたいです。", "vi": "Tôi muốn uống nước." }
+    ],
+    "exercises": [
+      { "q": "みずを のみ（　）です。(Muốn uống nước)", "options": ["たい", "ます", "ない", "ました"], "answer": 0, "explain": "Bỏ ます, thêm たい: のみます → のみたい." }
+    ]
+  }
+]

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HADC Japanese - Ngữ pháp N5</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 22px; }
+  .chip { background: #edf3fb; color: #26384d; padding: 8px 12px; font-size: 13px; }
+  .chip:hover { background: #d9e8fb; }
+  .chip.active { background: #1265ad; color: #fff; }
+  .structure {
+    background: #eef5ff; border-left: 5px solid #1265ad;
+    padding: 14px 16px; border-radius: 8px;
+    font-size: 22px; color: #1265ad; font-weight: bold;
+  }
+  .meaning { margin: 14px 0; font-size: 17px; line-height: 1.6; }
+  .notes { line-height: 1.7; }
+  .example {
+    background: #f7faff; border: 1px solid #cbdff5;
+    border-radius: 12px; padding: 12px 14px; margin: 10px 0;
+    display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  }
+  .example .jp { font-size: 22px; color: #1265ad; }
+  .example .kana { color: #60748a; margin: 2px 0; }
+  .example .vi { color: #26384d; }
+  .example button { padding: 10px 14px; flex-shrink: 0; }
+  .exercise { border-top: 1px dashed #cbdff5; padding-top: 14px; margin-top: 14px; }
+  .exercise .q { font-size: 18px; font-weight: bold; }
+  .exercise .fb { font-weight: bold; margin: 6px 0 0; }
+  h3 { color: #1265ad; margin-top: 26px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌸 HADC JAPANESE</h1>
+  <p>Ngữ pháp N5</p>
+</header>
+
+<nav>
+  <button onclick="location.href='index.html'">Về trang N5</button>
+  <button onclick="location.href='vocab.html'">Từ vựng</button>
+  <button onclick="location.href='../index.html'">Trang chủ</button>
+</nav>
+
+<main>
+  <section class="panel">
+    <h2>Chọn mẫu câu</h2>
+    <div id="chips" class="chips"></div>
+
+    <div id="detail"></div>
+  </section>
+</main>
+
+<footer>© 2026 HADC Japanese</footer>
+
+<script>
+let patterns = [];
+let done = {};
+const $ = (id) => document.getElementById(id);
+
+try {
+  done = JSON.parse(localStorage.getItem("hadc_n5_grammar_done") || "{}");
+} catch (e) { done = {}; }
+
+async function init() {
+  try {
+    const res = await fetch("../data/n5-grammar.json");
+    patterns = await res.json();
+  } catch (e) {
+    $("detail").textContent = "Không tải được dữ liệu. Hãy mở bằng Live Server.";
+    return;
+  }
+  renderChips(0);
+  showPattern(0);
+}
+
+function renderChips(activeIndex) {
+  const box = $("chips");
+  box.innerHTML = "";
+  patterns.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.className = "chip" + (i === activeIndex ? " active" : "");
+    b.textContent = (i + 1) + ". " + p.title + (done[p.id] ? " ✓" : "");
+    b.addEventListener("click", () => {
+      renderChips(i);
+      showPattern(i);
+    });
+    box.appendChild(b);
+  });
+}
+
+function el(tag, className, text) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function showPattern(i) {
+  const p = patterns[i];
+  const root = $("detail");
+  root.innerHTML = "";
+
+  root.appendChild(el("h2", "", p.title));
+  root.appendChild(el("div", "structure", p.structure));
+  root.appendChild(el("p", "meaning", p.meaning));
+
+  root.appendChild(el("h3", "", "Lưu ý"));
+  const ul = el("ul", "notes");
+  p.notes.forEach(n => ul.appendChild(el("li", "", n)));
+  root.appendChild(ul);
+
+  root.appendChild(el("h3", "", "Ví dụ"));
+  p.examples.forEach(ex => {
+    const row = el("div", "example");
+    const text = el("div");
+    text.appendChild(el("div", "jp", ex.jp));
+    text.appendChild(el("div", "kana", ex.kana));
+    text.appendChild(el("div", "vi", ex.vi));
+    const btn = el("button", "", "🔊");
+    btn.setAttribute("aria-label", "Nghe câu ví dụ");
+    btn.addEventListener("click", () => speak(ex.kana));
+    row.append(text, btn);
+    root.appendChild(row);
+  });
+
+  root.appendChild(el("h3", "", "Bài tập"));
+  renderExercises(p, i, root);
+}
+
+function renderExercises(p, patternIndex, root) {
+  let answered = 0;
+
+  p.exercises.forEach(ex => {
+    const box = el("div", "exercise");
+    box.appendChild(el("p", "q", ex.q));
+    const fb = el("p", "fb");
+
+    const buttons = ex.options.map((opt, idx) => {
+      const b = el("button", "answer", opt);
+      b.addEventListener("click", () => {
+        buttons.forEach((x, k) => {
+          x.disabled = true;
+          if (k === ex.answer) x.classList.add("correct");
+          else if (k === idx) x.classList.add("wrong");
+        });
+        fb.textContent = (idx === ex.answer ? "Chính xác! " : "Chưa đúng. ") + ex.explain;
+        answered++;
+        if (answered === p.exercises.length) markDone(p, patternIndex);
+      });
+      box.appendChild(b);
+      return b;
+    });
+
+    box.appendChild(fb);
+    root.appendChild(box);
+  });
+}
+
+function markDone(p, patternIndex) {
+  done[p.id] = true;
+  try {
+    localStorage.setItem("hadc_n5_grammar_done", JSON.stringify(done));
+  } catch (e) {}
+  renderChips(patternIndex);
+}
+
+function speak(text) {
+  if (!("speechSynthesis" in window)) {
+    alert("Trình duyệt không hỗ trợ phát âm.");
+    return;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ja-JP";
+  u.rate = 0.75;
+  speechSynthesis.speak(u);
+}
+
+init();
+</script>
+</body>
+</html>

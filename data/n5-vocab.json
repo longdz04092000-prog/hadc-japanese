@@ -1,0 +1,12 @@
+[
+  { "id": 1, "lesson": 1, "kanji": "私", "kana": "わたし", "vi": "tôi" },
+  { "id": 2, "lesson": 1, "kanji": "学生", "kana": "がくせい", "vi": "học sinh, sinh viên" },
+  { "id": 3, "lesson": 1, "kanji": "先生", "kana": "せんせい", "vi": "giáo viên" },
+  { "id": 4, "lesson": 1, "kanji": "会社員", "kana": "かいしゃいん", "vi": "nhân viên công ty" },
+  { "id": 5, "lesson": 1, "kanji": "友達", "kana": "ともだち", "vi": "bạn bè" },
+  { "id": 6, "lesson": 2, "kanji": "本", "kana": "ほん", "vi": "quyển sách" },
+  { "id": 7, "lesson": 2, "kanji": "水", "kana": "みず", "vi": "nước" },
+  { "id": 8, "lesson": 2, "kanji": "食べる", "kana": "たべる", "vi": "ăn" },
+  { "id": 9, "lesson": 2, "kanji": "飲む", "kana": "のむ", "vi": "uống" },
+  { "id": 10, "lesson": 2, "kanji": "学校", "kana": "がっこう", "vi": "trường học" }
+]

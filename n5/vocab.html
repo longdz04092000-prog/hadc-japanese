@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HADC Japanese - Từ vựng N5</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .flash {
+    background: #eef5ff;
+    border: 1px solid #cbdff5;
+    border-radius: 16px;
+    min-height: 220px;
+    padding: 30px 16px;
+    text-align: center;
+    cursor: pointer;
+    margin: 18px 0;
+  }
+  .flash .big { font-size: 52px; color: #1265ad; font-weight: bold; }
+  .flash .kana { font-size: 28px; margin-top: 14px; }
+  .flash .vi { font-size: 22px; margin-top: 10px; color: #26384d; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row button { width: auto; flex: 1; }
+  select { padding: 10px; border-radius: 8px; border: 1px solid #cbdff5; font-size: 15px; }
+  .known { background: #087b42; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌸 HADC JAPANESE</h1>
+  <p>Từ vựng N5</p>
+</header>
+
+<nav>
+  <button onclick="location.href='index.html'">Về trang N5</button>
+  <button onclick="location.href='../index.html'">Trang chủ</button>
+</nav>
+
+<main>
+  <section class="panel">
+    <h2>Học từ vựng</h2>
+
+    <label for="lessonSelect">Chọn bài: </label>
+    <select id="lessonSelect"></select>
+
+    <p id="counter"></p>
+
+    <div id="flash" class="flash" role="button" tabindex="0">
+      <div class="big" id="word"></div>
+      <div class="kana" id="kana"></div>
+      <div class="vi" id="vi"></div>
+    </div>
+
+    <p style="text-align:center;color:#60748a">Bấm vào thẻ để lật</p>
+
+    <div class="row">
+      <button id="prevBtn">← Trước</button>
+      <button id="speakBtn">🔊 Nghe</button>
+      <button id="knownBtn">✓ Đã thuộc</button>
+      <button id="nextBtn">Sau →</button>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 HADC Japanese</footer>
+
+<script>
+let words = [];
+let list = [];
+let index = 0;
+let flipped = false;
+let known = [];
+
+try {
+  known = JSON.parse(localStorage.getItem("hadc_n5_known") || "[]");
+} catch (e) { known = []; }
+
+const $ = (id) => document.getElementById(id);
+
+async function init() {
+  try {
+    const res = await fetch("../data/n5-vocab.json");
+    words = await res.json();
+  } catch (e) {
+    $("word").textContent = "Không tải được dữ liệu. Hãy mở bằng Live Server.";
+    return;
+  }
+
+  const lessons = [...new Set(words.map(w => w.lesson))].sort((a, b) => a - b);
+  lessons.forEach(n => {
+    const opt = document.createElement("option");
+    opt.value = n;
+    opt.textContent = "Bài " + n;
+    $("lessonSelect").appendChild(opt);
+  });
+
+  $("lessonSelect").addEventListener("change", loadLesson);
+  $("flash").addEventListener("click", flip);
+  $("flash").addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); }
+  });
+  $("prevBtn").addEventListener("click", () => move(-1));
+  $("nextBtn").addEventListener("click", () => move(1));
+  $("speakBtn").addEventListener("click", speak);
+  $("knownBtn").addEventListener("click", toggleKnown);
+
+  loadLesson();
+}
+
+function loadLesson() {
+  const lesson = Number($("lessonSelect").value);
+  list = words.filter(w => w.lesson === lesson);
+  index = 0;
+  render();
+}
+
+function render() {
+  const w = list[index];
+  flipped = false;
+  $("word").textContent = w.kanji;
+  $("kana").textContent = "";
+  $("vi").textContent = "";
+  $("counter").textContent =
+    "Từ " + (index + 1) + "/" + list.length +
+    (known.includes(w.id) ? " ✓ đã thuộc" : "");
+  $("knownBtn").classList.toggle("known", known.includes(w.id));
+}
+
+function flip() {
+  const w = list[index];
+  flipped = !flipped;
+  $("kana").textContent = flipped ? w.kana : "";
+  $("vi").textContent = flipped ? w.vi : "";
+}
+
+function move(step) {
+  index = (index + step + list.length) % list.length;
+  render();
+}
+
+function speak() {
+  if (!("speechSynthesis" in window)) {
+    alert("Trình duyệt không hỗ trợ phát âm.");
+    return;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(list[index].kana);
+  u.lang = "ja-JP";
+  u.rate = 0.75;
+  speechSynthesis.speak(u);
+}
+
+function toggleKnown() {
+  const id = list[index].id;
+  known = known.includes(id) ? known.filter(x => x !== id) : [...known, id];
+  try {
+    localStorage.setItem("hadc_n5_known", JSON.stringify(known));
+  } catch (e) {}
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
